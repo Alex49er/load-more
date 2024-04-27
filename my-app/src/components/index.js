@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import './styles.css'
 
 
 export default function LoadMoreData() {
@@ -15,7 +15,7 @@ export default function LoadMoreData() {
 
             const result = await response.json();
 
-            if (result && result.products && result.length) {
+            if (result && result.products && result.products.length) {
                 setProducts(result.products)
                 setLoading(false)
             }
@@ -34,15 +34,19 @@ export default function LoadMoreData() {
         return <div>Loading data! Please wait</div>
     }
 
-    return <div className="container">
-        <div>
+    return <div className="load-more-container">
+        <div className='product-container'>
             {
                 products && products.length ?
-                    products.map(item => <div key={item.id}>
+                    products.map(item => <div className='product' key={item.id}>
                         <img src={item.thumbnail} alt={item.title} />
+                        <p>{item.title}</p>
                     </div>)
                     : null
             }
+        </div>
+        <div className='button-container'>
+            <button>Load More Products</button>
         </div>
     </div>
 }
